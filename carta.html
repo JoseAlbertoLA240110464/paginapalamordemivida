@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para mi nakama favorita</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#082c4c; --ocean:#0d6288; --foam:#dff5f2; --red:#bd3a37; --gold:#f5bd45; --cream:#fff5df; --ink:#163a45; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:"DM Sans",sans-serif; color:var(--ink); overflow-x:hidden; background:#fff8e9; }
+    h1,h2,h3 { font-family:"Fraunces",serif; }
+    
+    .hero { position:relative; min-height:85vh; display:flex; align-items:center; background:#082c4c; overflow:hidden; }
+    .hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(4,29,50,.93) 0%,rgba(4,29,50,.68) 48%,rgba(4,29,50,.25) 100%); z-index:1; }
+    .hero-content { position:relative; z-index:2; }
+    .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+    
+    .wave { position:absolute; left:-6%; width:112%; height:80px; border-radius:50% 50% 0 0; background:#dff5f2; opacity:.92; animation:drift 7s ease-in-out infinite; z-index:2; }
+    .wave.one { bottom:-42px; } 
+    .wave.two { bottom:-55px; background:#68bad0; opacity:.72; animation-delay:-3s; }
+    @keyframes drift { 50% { transform:translateX(4%) translateY(-9px); } }
+    
+    .star { position:absolute; width:5px; height:5px; background:#fff5df; border-radius:50%; box-shadow:0 0 12px 3px #fff5df; animation:twinkle 2.7s infinite ease-in-out; z-index:2; }
+    @keyframes twinkle { 50% { opacity:.25; transform:scale(.6); } }
+    
+    .section-title { font-size:clamp(2.1rem,4.8vw,4.25rem); line-height:1; }
+    .section-kicker { color:var(--red); text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; font-weight:800; }
+    
+    .timeline-line { position:absolute; left:22px; top:0; bottom:0; width:2px; background:linear-gradient(var(--gold),var(--red)); }
+    .memory-dot { position:absolute; left:-29px; top:6px; width:18px; height:18px; border-radius:50%; background:var(--gold); border:3px solid #fff8e9; }
+    
+    .map-board { background:#f7e0a6; background-image:linear-gradient(90deg,rgba(129,77,32,.09) 1px,transparent 1px),linear-gradient(rgba(129,77,32,.07) 1px,transparent 1px); background-size:26px 26px; box-shadow:inset 0 0 60px rgba(115,65,18,.22); }
+    .map-route { position:absolute; inset:15% 12%; border:3px dashed rgba(154,73,36,.6); border-radius:47% 55% 41% 51%; transform:rotate(-6deg); }
+    .map-marker { position:absolute; width:48px; height:48px; border-radius:50%; border:3px solid #fff7dc; background:var(--red); color:white; display:grid; place-items:center; cursor:pointer; box-shadow:0 5px 0 #7c2528; transition:.2s; z-index:10; }
+    .map-marker:hover { transform:translateY(-5px) scale(1.07); }
+    
+    .treasure-chest { width:112px; height:80px; background:linear-gradient(#b86d2d 0 18%,#753819 19% 100%); border:5px solid #542613; border-radius:18px 18px 10px 10px; box-shadow:0 9px 0 #3f1b12; position:relative; cursor:pointer; transition:.25s; }
+    .treasure-chest::after { content:""; position:absolute; width:22px; height:24px; background:var(--gold); border:4px solid #70430e; border-radius:4px; top:29px; left:40px; }
+    .treasure-chest:hover { transform:translateY(-5px) rotate(-2deg); }
+    
+    .count-box { background:var(--navy); color:#fff8e9; border-bottom:5px solid var(--gold); }
+    .photo-slot { min-height:230px; }
+  </style>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Navegación -->
+    <header class="sticky top-0 z-40 bg-[#082c4c]/95 border-b border-[#f5bd45]/40 backdrop-blur">
+      <nav aria-label="Navegación principal" class="w-full max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
+        <a href="#inicio" class="text-[#f5bd45] font-bold text-lg">Nuestra aventura</a>
+        <div class="flex items-center gap-6">
+          <a href="#viaje" class="text-[#fff8e9] text-sm font-bold uppercase hover:text-[#f5bd45]">Nuestro viaje</a>
+          <a href="#musica" class="text-[#fff8e9] text-sm font-bold uppercase hover:text-[#f5bd45]">Música</a>
+          <a href="#tesoro" class="text-[#fff8e9] text-sm font-bold uppercase hover:text-[#f5bd45]">Tesoro</a>
+          <a href="#galeria" class="text-[#fff8e9] text-sm font-bold uppercase hover:text-[#f5bd45]">Galería</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section id="inicio" class="hero">
+        <img class="hero-img" src="https://images.pexels.com/photos/21036175/pexels-photo-21036175.jpeg" alt="Atardecer náutico">
+        <span class="star" style="top:19%;left:13%"></span>
+        <span class="star" style="top:15%;left:39%;animation-delay:-1s"></span>
+        <span class="star" style="top:27%;right:14%;animation-delay:-2s"></span>
+
+        <div class="w-full max-w-7xl mx-auto px-6 py-20 hero-content text-[#fff8e9]">
+          <p class="text-[#f5bd45] font-bold uppercase tracking-[.2em] text-xs mb-3">Bitácora de dos corazones</p>
+          <h1 class="font-bold text-4xl md:text-6xl mb-3">Para mi nakama favorita</h1>
+          <p id="hero-name" class="text-2xl md:text-3xl font-serif text-[#f5bd45] mb-5"></p>
+          <p id="hero-message" class="text-lg leading-relaxed max-w-xl text-slate-100"></p>
+          <div class="flex flex-wrap gap-3 mt-8">
+            <a href="#viaje" class="inline-block bg-[#f5bd45] text-[#082c4c] px-6 py-3 rounded-full font-bold hover:bg-[#ffe085] transition-colors">Empezar el viaje</a>
+          </div>
+        </div>
+
+        <div class="wave one"></div>
+        <div class="wave two"></div>
+      </section>
+
+      <!-- Bitácora / Recuerdos -->
+      <section id="viaje" class="py-20 px-5 bg-[#fff8e9]">
+        <div class="max-w-5xl mx-auto">
+          <p class="section-kicker">Capítulo a capítulo</p>
+          <h2 class="section-title text-[#082c4c] mt-2">Nuestro viaje</h2>
+          <p class="max-w-xl mt-3 text-[#49636b] leading-relaxed">Cada puerto, cada risa y cada pequeño momento se convirtió en una parte de nuestra historia.</p>
+          <div id="memory-list" class="relative mt-12 space-y-10 pl-12">
+            <div class="timeline-line"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Música / Banda sonora -->
+      <section id="musica" class="py-20 px-5 bg-[#0d6288] text-[#fff8e9]">
+        <div class="max-w-7xl mx-auto">
+          <p class="text-[#f5bd45] font-bold uppercase tracking-[.18em] text-xs">Canciones para navegar</p>
+          <div class="flex flex-wrap justify-between items-end gap-6 mt-2">
+            <h2 class="section-title">La banda sonora de nosotros</h2>
+            <p class="max-w-md text-[#dff5f2]">Las canciones que siempre nos regresan a un momento bonito juntos.</p>
+          </div>
+          <div id="song-list" class="grid md:grid-cols-3 gap-5 mt-10"></div>
+        </div>
+      </section>
+
+      <!-- Mapa y Tesoro oculto -->
+      <section id="tesoro" class="py-20 px-5 bg-[#fff5df]">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center max-w-2xl mx-auto">
+            <p class="section-kicker">Coordenadas del corazón</p>
+            <h2 class="section-title text-[#082c4c] mt-2">El mapa de nuestro tesoro</h2>
+            <p class="mt-3 text-[#49636b]">Toca las marcas del mapa o abre el cofre directo en el centro.</p>
+          </div>
+          
+          <div class="map-board relative min-h-[430px] rounded-[2rem] border-[10px] border-[#9a5b2c] mt-10 overflow-hidden">
+            <div class="map-route"></div>
+            <i data-lucide="compass" class="absolute left-7 top-6 text-[#8d4828] w-20 h-20 opacity-80"></i>
+            <i data-lucide="ship" class="absolute right-10 top-10 text-[#0d6288] w-16 h-16 rotate-[-16deg]"></i>
+            
+            <div id="map-markers-container"></div>
+
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
+              <button id="secret-button" type="button" aria-label="Abrir cofre" class="treasure-chest focus:outline-none"></button>
+              <span class="mt-4 font-bold text-[#713819]">Abre el cofre</span>
+            </div>
+
+            <div id="map-note" class="absolute bottom-5 left-1/2 -translate-x-1/2 w-[min(90%,450px)] text-center bg-[#fff8e9]/95 rounded-xl px-5 py-3 shadow text-[#713819] font-semibold min-h-[48px] flex items-center justify-center z-20">
+              Toca una marca del mapa
+            </div>
+          </div>
+
+          <div id="secret-message" class="hidden mt-8 max-w-2xl mx-auto text-center bg-[#bd3a37] rounded-2xl px-8 py-7 text-white shadow-xl">
+            <p class="text-[#f5bd45] uppercase tracking-[.17em] font-bold text-xs">Mensaje encontrado</p>
+            <p id="secret-text" class="font-serif text-2xl mt-3"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contador de próximo evento -->
+      <section class="py-20 px-5 bg-[#082c4c]">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-[1.1fr_.9fr] gap-10 items-center">
+          <div>
+            <p class="text-[#f5bd45] uppercase tracking-[.18em] font-bold text-xs">Próxima coordenada</p>
+            <h2 id="event-name-display" class="section-title text-[#fff8e9] mt-3"></h2>
+            <p class="text-[#dff5f2] mt-4 max-w-lg">Falta muy poco para nuestro próximo gran momento juntos.</p>
+          </div>
+          <div class="grid grid-cols-4 gap-3">
+            <div class="count-box p-4 rounded-xl text-center">
+              <strong id="days" class="block text-3xl font-serif">0</strong>
+              <span class="text-xs uppercase tracking-wider text-[#fff8e9]">Días</span>
+            </div>
+            <div class="count-box p-4 rounded-xl text-center">
+              <strong id="hours" class="block text-3xl font-serif">0</strong>
+              <span class="text-xs uppercase tracking-wider text-[#fff8e9]">Horas</span>
+            </div>
+            <div class="count-box p-4 rounded-xl text-center">
+              <strong id="minutes" class="block text-3xl font-serif">0</strong>
+              <span class="text-xs uppercase tracking-wider text-[#fff8e9]">Min</span>
+            </div>
+            <div class="count-box p-4 rounded-xl text-center">
+              <strong id="seconds" class="block text-3xl font-serif">0</strong>
+              <span class="text-xs uppercase tracking-wider text-[#fff8e9]">Seg</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Galería de fotos -->
+      <section id="galeria" class="py-20 px-5 bg-[#fff8e9]">
+        <div class="max-w-7xl mx-auto">
+          <p class="section-kicker">Postales de nuestra ruta</p>
+          <h2 class="section-title text-[#082c4c] mt-2">Galería de momentos</h2>
+          <div id="gallery-container" class="grid sm:grid-cols-3 gap-6 mt-9"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-[#082c4c] text-center px-5 py-9">
+      <p class="text-[#dff5f2]">Hecho con cariño para una aventura que apenas comienza. ❤️</p>
+    </footer>
+  </div>
+
+  <script>
+    // =========================================================================
+    // CONFIGURA AQUÍ TODOS TUS DATOS PERSONALIZADOS:
+    // =========================================================================
+    const miAventura = {
+      nombre_novia: "Mi Nakama Favorita",
+      mensaje_portada: "Eres mi lugar favorito en cualquier mar, mi calma en cada tormenta y la aventura que siempre volvería a elegir.",
+      mensaje_secreto: "No importa cuántos mares haya que cruzar: contigo siempre encuentro mi tesoro, sin importar lo que pase luchare por tu amor por que eres mi one piece en la vida.",
+      
+      evento_nombre: "Nuestra próxima cita, si me permites verte",
+      evento_fecha: "2026-10-02T16:00:00", 
+
+      // Bitácora de recuerdos (Nuevas fotos aplicadas aquí)
+      recuerdos: [
+        { 
+          fecha: "31 de Marzo del 2022.", 
+          titulo: "Nuestro primer capítulo", 
+          descripcion: "Ese día donde todo comenzó y sin saberlo mi vida se volvió más bonita, fue la primera vez que te vi y me enamore de usted tanto que le robe nuestro primer beso sin  importarme nada solo saber que queria conocerte y enamorarte.",
+          foto: "https://i.postimg.cc/kMKbTbcd/Whats-App-Image-2026-09-28-at-12-01-28-AM.jpg"
+        },
+        { 
+          fecha: "13 de julio del 2022", 
+          titulo: "Rumbo al mar", 
+          descripcion: "El dia en que por fin me distes el honor de poder decir que tenia a la novia mas hermosa, divertidad y inteligente a mi lado sin duda alguna ese dia fui el más feliz.",
+          foto: "https://i.postimg.cc/nL9zMyRy/Whats-App-Image-2026-09-27-at-11-51-40-PM.jpg"
+        },
+        { 
+          fecha: "Una dia cualquiera", 
+          titulo: "Ver tu sonrisa a diario en la escuela", 
+          descripcion: "Cuando me di cuenta de que estar a tu lado en silencio ya era perfecto, aprendi que solo ocupaba estar a tu lado para ser feliz dia con dia, pues lo mejor de todo era tu compañia y tu cariño.",
+          foto: "https://i.postimg.cc/Wb9b8NQV/Whats-App-Image-2026-09-27-at-11-51-40-PM-(2).jpg"
+        }
+      ],
+
+      // Banda sonora / Canciones
+      canciones: [
+        { titulo: "A Dónde Vamos", artista: "Morat", descripcion: "La canción que sono cuando nos conocimos.", enlace: "https://www.youtube.com/watch?v=TYrcdhots80" },
+        { titulo: "Zumo de Mandrágora", artista: "Piter-G", descripcion: "La canción que me recuerda a ti en cada segundo y saber que solo quiero conocerte dia con dia y descrubir lo que te gusta por que siempre te voy a recodar a ver las cosas que te gustan.", enlace: "https://www.youtube.com/watch?v=1_PSV45x39M" },
+        { titulo: "Disfruto", artista: "Carla Morrison", descripcion: "Lo que siento y haria por ti siempre.", enlace: "https://www.youtube.com/watch?v=g8wMQ7W3108" }
+      ],
+
+      // Hitos interactivos del mapa
+      hitos: [
+        { titulo: "Primer encuentro", nota: "El lugar exacto donde todo empezó fue aquel rio con bonito paisaje de naturaleza donde sentados en una piedra me anime a robarte nuestro primer beso .", icon: "heart", pos: "left:15%;top:28%" },
+        { titulo: "Una canción", nota: "Aquella melodía que cantamos a todo volumen, fue la de Aprender a quererte de morat, pues ambos queriamos conocer el uno del otro y enamorarnos. .", icon: "star", pos: "right:19%;top:21%" },
+        { titulo: "Un café juntos", nota: "Pláticas infinitas que no quería que terminaran, sin dudas algunas todas esas platicas que teniamos diario en la escuela y podia escuchar tu risa y observa lo linda que te veias al sonreir .", icon: "coffee", pos: "left:27%;bottom:19%" },
+        { titulo: "El horizonte", nota: "Todo lo hermoso que todavía nos falta por vivir, sin duda alguna yo no quiero que nuestra historia haya llegado a un final yo quiero seguir  enamorandote dia con dia hasta el final y en un futuro volver a ganarme tu amor.", icon: "sun", pos: "right:18%;bottom:18%" }
+      ],
+
+      // Fotos de la galería
+      fotos: [
+        { url: "https://i.postimg.cc/J0WKSQJV/foto1.jpg", alt: "Foto juntos" },
+        { url: "https://i.postimg.cc/KvW3z8qB/foto2.jpg", alt: "Foto especial" },
+        { url: "https://i.postimg.cc/QxFVRrXY/foto3.jpg", alt: "Nuestra foto" }
+      ]
+    };
+
+    // =========================================================================
+    // LÓGICA DE LA PÁGINA
+    // =========================================================================
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Textos principales
+      document.getElementById("hero-name").textContent = miAventura.nombre_novia;
+      document.getElementById("hero-message").textContent = miAventura.mensaje_portada;
+      document.getElementById("secret-text").textContent = miAventura.mensaje_secreto;
+      document.getElementById("event-name-display").textContent = miAventura.evento_nombre;
+
+      // 2. Renderizar Recuerdos con sus fotos correspondientes
+      const memoryList = document.getElementById("memory-list");
+      miAventura.recuerdos.forEach(recuerda => {
+        const div = document.createElement("div");
+        div.className = "relative mb-10";
+        div.innerHTML = `
+          <div class="memory-dot"></div>
+          <span class="text-xs font-bold text-[#bd3a37] uppercase tracking-wider">${recuerda.fecha}</span>
+          <h3 class="text-2xl font-bold text-[#082c4c] mt-1">${recuerda.titulo}</h3>
+          <p class="text-[#49636b] mt-2 leading-relaxed max-w-2xl">${recuerda.descripcion}</p>
+          ${recuerda.foto ? `
+            <div class="mt-4 max-w-md rounded-2xl overflow-hidden shadow-md border-4 border-white">
+              <img src="${recuerda.foto}" alt="${recuerda.titulo}" class="w-full h-auto max-h-80 object-cover">
+            </div>
+          ` : ''}
+        `;
+        memoryList.appendChild(div);
+      });
+
+      // 3. Renderizar Canciones
+      const songList = document.getElementById("song-list");
+      miAventura.canciones.forEach(song => {
+        const div = document.createElement("div");
+        div.className = "bg-[#082c4c] p-6 rounded-2xl border border-white/10 flex flex-col justify-between";
+        div.innerHTML = `
+          <div>
+            <h3 class="font-bold text-xl text-[#f5bd45]">${song.titulo}</h3>
+            <p class="text-xs font-semibold uppercase text-[#dff5f2] mt-1">${song.artista}</p>
+            <p class="text-sm mt-4 text-slate-200 leading-relaxed">${song.descripcion}</p>
+          </div>
+          ${song.enlace ? `<a href="${song.enlace}" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-[#f5bd45] mt-5 hover:underline"><i data-lucide="music" class="w-4 h-4"></i> Escuchar canción</a>` : ''}
+        `;
+        songList.appendChild(div);
+      });
+
+      // 4. Renderizar Hitos del Mapa
+      const mapContainer = document.getElementById("map-markers-container");
+      const mapNote = document.getElementById("map-note");
+
+      miAventura.hitos.forEach((hito) => {
+        const btn = document.createElement("button");
+        btn.className = "map-marker";
+        btn.style = hito.pos;
+        btn.type = "button";
+        btn.innerHTML = `<i data-lucide="${hito.icon || 'heart'}" class="w-5 h-5"></i>`;
+        btn.addEventListener("click", () => {
+          mapNote.textContent = `${hito.titulo}: ${hito.nota}`;
+        });
+        mapContainer.appendChild(btn);
+      });
+
+      // 5. Cofre del tesoro
+      const secretBtn = document.getElementById("secret-button");
+      const secretMessage = document.getElementById("secret-message");
+      secretBtn.addEventListener("click", () => {
+        secretMessage.classList.toggle("hidden");
+      });
+
+      // 6. Galería de fotos
+      const galleryContainer = document.getElementById("gallery-container");
+      const rotations = ['rotate-[-2deg]', 'rotate-[2deg]', 'rotate-[-1deg]'];
+      miAventura.fotos.forEach((foto, i) => {
+        const div = document.createElement("div");
+        const rot = rotations[i % rotations.length];
+        div.className = `photo-slot overflow-hidden rounded-2xl ${rot} shadow-lg border-4 border-white h-64`;
+        div.innerHTML = `<img loading="lazy" class="w-full h-full object-cover" src="${foto.url}" alt="${foto.alt || 'Foto'}">`;
+        galleryContainer.appendChild(div);
+      });
+
+      // 7. Contador
+      function updateCountdown() {
+        if (!miAventura.evento_fecha) return;
+        const target = new Date(miAventura.evento_fecha).getTime();
+        const now = new Date().getTime();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          document.getElementById("days").textContent = "0";
+          document.getElementById("hours").textContent = "0";
+          document.getElementById("minutes").textContent = "0";
+          document.getElementById("seconds").textContent = "0";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+        document.getElementById("seconds").textContent = seconds;
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // Inicializar iconos de Lucide
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
